@@ -20,7 +20,7 @@ Según los lineamientos técnicos, el sistema integra:
 
 A continuación se muestra la arquitectura del sistema y cómo se relacionan las entidades:
 
-![Diagrama de Clases Veterinaria](./veterinaria.jpg)
+![Diagrama de Clases Veterinaria](./veterinaria(1).png)
 
 1.  **Herencia (Generalización):** `Mascota` extiende de `Animal`.
 2.  **Agregación:** `Propietario` posee una lista de `Mascotas`.
