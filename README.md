@@ -28,3 +28,9 @@ src/
     ├── Veterinario.java      # Datos del médico y especialidad
     ├── Consulta.java         # Registro de atención y lista de medicinas
     └── Medicamento.java      # Detalle del fármaco y dosis
+
+![Diagrama de Clases Veterinaria](./veterinaria.jpg)
+
+
+
+
