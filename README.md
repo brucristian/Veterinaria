@@ -16,6 +16,16 @@ Según los lineamientos técnicos, el sistema integra:
     * **Composición:** Consulta -> Medicamentos.
     * **Asociación:** Consulta -> Veterinario.
 * **Arquitectura:** Clases organizadas dentro del paquete `models`.
+*  ## 🏗️ Diagrama de Clases (Lógica de Relaciones)
+
+A continuación se muestra la arquitectura del sistema y cómo se relacionan las entidades:
+
+![Diagrama de Clases Veterinaria](./veterinaria.jpg)
+
+1.  **Herencia (Generalización):** `Mascota` extiende de `Animal`.
+2.  **Agregación:** `Propietario` posee una lista de `Mascotas`.
+3.  **Composición:** `Consulta` es dueña de su lista de `Medicamentos`.
+4.  **Asociación:** `Consulta` referencia a un `Veterinario` y a una `Mascota`.
 
 ## 📁 Estructura del Código
 
@@ -29,7 +39,7 @@ src/
     ├── Consulta.java         # Registro de atención y lista de medicinas
     └── Medicamento.java      # Detalle del fármaco y dosis
 
-![Diagrama de Clases Veterinaria](./veterinaria.jpg)
+
 
 
 
