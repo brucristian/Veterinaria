@@ -28,10 +28,9 @@ public class Veterinario {
         this.especialidad = especialidad;
     }
 
-    public void recetar(Mascota masco, Medicamento medica) {
-        System.out.println("El veterinario " + this.nombre +
-                " receta " + medica.getNombre() +
-                " para la mascota " + masco.getNameCompleto());
+    public void recetar(Consulta consulta, Medicamento medicamento) {
+        consulta.getMedicamentos().add(medicamento);
+        System.out.println("¡Medicamento '" + medicamento.getNombre() + "' recetado con éxito!");
     }
 
 
