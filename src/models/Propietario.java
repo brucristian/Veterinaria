@@ -8,9 +8,10 @@ public class Propietario {
     private String id;
     private String direccion;
     private String telefono;
-    private List<Mascota> misMascotas = new ArrayList<>();
+    private List<Mascota> misMascotas;
 
     public Propietario() {
+        List<Mascota> misMascotas = new ArrayList<>();
     }
 
     public Propietario(String nameCompleto, String id, String direccion, String telefono) {
@@ -18,6 +19,7 @@ public class Propietario {
         this.id = id;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.misMascotas = new ArrayList<>();
     }
 
     public String getNameCompleto() {

@@ -1,6 +1,8 @@
 package models;
 
-import java.util.Date;
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Consulta {
@@ -11,30 +13,34 @@ public class Consulta {
     private Veterinario medicoResponsable;
 
     public Consulta() {
+        this.medicamentos = new ArrayList<>();
     }
 
-    public Consulta(String idConsulta, String motivo,
-                    String fecha, List<Medicamento> medicamentos,
-                    Veterinario medicoResponsable) {
+
+    public Consulta(String idConsulta, String motivo, String fecha, Veterinario medicoResponsable) {
         this.idConsulta = idConsulta;
         this.motivo = motivo;
         this.fecha = fecha;
-        this.medicamentos = medicamentos;
         this.medicoResponsable = medicoResponsable;
+        this.medicamentos = new ArrayList<>();
     }
+
+
+    public void agregarMedicamento(Medicamento med) {
+        this.medicamentos.add(med);
+    }
+
 
     public String getIdConsulta() {
         return idConsulta;
     }
 
     public void setIdConsulta(String idConsulta) {
-        this.idConsulta = idConsulta;
-    }
+        this.idConsulta = idConsulta; }
 
     public String getMotivo() {
         return motivo;
     }
-
     public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
@@ -42,7 +48,6 @@ public class Consulta {
     public String getFecha() {
         return fecha;
     }
-
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
@@ -50,7 +55,6 @@ public class Consulta {
     public List<Medicamento> getMedicamentos() {
         return medicamentos;
     }
-
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }
@@ -58,9 +62,7 @@ public class Consulta {
     public Veterinario getMedicoResponsable() {
         return medicoResponsable;
     }
-
     public void setMedicoResponsable(Veterinario medicoResponsable) {
         this.medicoResponsable = medicoResponsable;
     }
-
 }

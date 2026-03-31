@@ -14,12 +14,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Inicializamos datos de prueba
+
         generarDatosPrueba();
 
-        // Creamos una consulta inicial de ejemplo sin recetas previas
+
         Veterinario vet = new Veterinario("Dr. Ricardo Sierra", "Cardiología");
-        Consulta citaInicial = new Consulta("1234", "Chequeo Corazón", "30/03/2026", new ArrayList<>(), vet);
+        Consulta citaInicial = new Consulta("1234", "Chequeo Corazón", "30/03/2026", vet);
         bdConsultas.add(citaInicial);
 
         int opcion = 0;
@@ -82,12 +82,12 @@ public class Main {
                     break;
 
                 case 4:
-                    // LOGICA PARA RECETAR DINAMICAMENTE
+
                     System.out.println("\n--- REGISTRAR NUEVA RECETA ---");
                     if (bdConsultas.isEmpty()) {
                         System.out.println("Error: No existen consultas para recetar.");
                     } else {
-                        System.out.println("Seleccione el ID de la consulta (ej: C-101): ");
+                        System.out.println("Seleccione el ID de la consulta (ej = 1234): ");
                         String idBuscado = scanner.nextLine();
 
                         Consulta consultaEncontrada = null;
@@ -104,7 +104,7 @@ public class Main {
                             System.out.print("Dosis: ");
                             String dosisMed = scanner.nextLine();
 
-                            // Usamos el método recetar del veterinario responsable de esa consulta
+
                             Medicamento nuevoMed = new Medicamento(nombreMed, dosisMed);
                             consultaEncontrada.getMedicoResponsable().recetar(consultaEncontrada, nuevoMed);
 
