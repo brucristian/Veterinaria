@@ -14,24 +14,22 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Inicializamos datos de prueba
         generarDatosPrueba();
 
+        // Creamos una consulta inicial de ejemplo sin recetas previas
         Veterinario vet = new Veterinario("Dr. Ricardo Sierra", "Cardiología");
-
-        Consulta cita = new Consulta("C-101", "Chequeo Corazón", "30/03/2026", new ArrayList<>(), vet);
-
-        vet.recetar(cita,new Medicamento("Omeprazol", "2 cada 8 horas"));
-        vet.recetar(cita,new Medicamento("Vitaminas", "5ml diario"));
-
-        bdConsultas.add(cita);
+        Consulta citaInicial = new Consulta("1234", "Chequeo Corazón", "30/03/2026", new ArrayList<>(), vet);
+        bdConsultas.add(citaInicial);
 
         int opcion = 0;
         do {
             System.out.println("\n=== SISTEMA VETERINARIO ===");
             System.out.println("1. Ver todas las mascotas");
             System.out.println("2. Ver propietarios con sus mascotas");
-            System.out.println("3. Ver todas las consultas");
-            System.out.println("4. Salir");
+            System.out.println("3. Ver historial de consultas");
+            System.out.println("4. Recetar medicamento (Nueva Receta)");
+            System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
 
             try {
@@ -65,28 +63,66 @@ public class Main {
 
                 case 3:
                     System.out.println("\n--- HISTORIAL DE CONSULTAS ---");
-                    for (Consulta c : bdConsultas) {
-                        System.out.println("Código: " + c.getIdConsulta() + " | Motivo: " + c.getMotivo());
-                        System.out.println("Atendido por: " + c.getMedicoResponsable().getNombre());
-                        System.out.println("Medicamentos Recetados:");
-                        if (c.getMedicamentos() == null || c.getMedicamentos().isEmpty()) {
-                            System.out.println("   - Ningún medicamento recetado.");
-                        } else {
-                            for (Medicamento med : c.getMedicamentos()) {
-                                System.out.println("   > " + med.getNombre() + " (" + med.getDosis() + ")");
+                    if (bdConsultas.isEmpty()) {
+                        System.out.println("No hay consultas registradas.");
+                    } else {
+                        for (Consulta c : bdConsultas) {
+                            System.out.println("\nCódigo: " + c.getIdConsulta() + " | Motivo: " + c.getMotivo());
+                            System.out.println("Atendido por: " + c.getMedicoResponsable().getNombre());
+                            System.out.println("Medicamentos:");
+                            if (c.getMedicamentos() == null || c.getMedicamentos().isEmpty()) {
+                                System.out.println("   - Ningún medicamento recetado.");
+                            } else {
+                                for (Medicamento med : c.getMedicamentos()) {
+                                    System.out.println("   > " + med.getNombre() + " (" + med.getDosis() + ")");
+                                }
                             }
                         }
                     }
                     break;
 
                 case 4:
+                    // LOGICA PARA RECETAR DINAMICAMENTE
+                    System.out.println("\n--- REGISTRAR NUEVA RECETA ---");
+                    if (bdConsultas.isEmpty()) {
+                        System.out.println("Error: No existen consultas para recetar.");
+                    } else {
+                        System.out.println("Seleccione el ID de la consulta (ej: C-101): ");
+                        String idBuscado = scanner.nextLine();
+
+                        Consulta consultaEncontrada = null;
+                        for(Consulta c : bdConsultas) {
+                            if(c.getIdConsulta().equalsIgnoreCase(idBuscado)) {
+                                consultaEncontrada = c;
+                                break;
+                            }
+                        }
+
+                        if (consultaEncontrada != null) {
+                            System.out.print("Nombre del medicamento: ");
+                            String nombreMed = scanner.nextLine();
+                            System.out.print("Dosis: ");
+                            String dosisMed = scanner.nextLine();
+
+                            // Usamos el método recetar del veterinario responsable de esa consulta
+                            Medicamento nuevoMed = new Medicamento(nombreMed, dosisMed);
+                            consultaEncontrada.getMedicoResponsable().recetar(consultaEncontrada, nuevoMed);
+
+                            System.out.println("¡Medicamento recetado con éxito!");
+                        } else {
+                            System.out.println("Consulta no encontrada.");
+                        }
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Saliendo del sistema...");
                     break;
 
                 default:
                     System.out.println("Opción no válida.");
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
 
         scanner.close();
     }
@@ -107,9 +143,7 @@ public class Main {
 
         for (int i = 0; i < nombresMascotas.length; i++) {
             Propietario duenoAsignado = bdPropietarios.get(i % bdPropietarios.size());
-
             Mascota m = new Mascota("Canino", "Vario", "Vario", nombresMascotas[i], razas[i], new Date(), "CHIP-" + i, (i % 5) + 1, "Ninguna", duenoAsignado);
-
             bdMascotas.add(m);
             duenoAsignado.getMisMascotas().add(m);
         }
